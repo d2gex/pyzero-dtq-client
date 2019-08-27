@@ -20,6 +20,10 @@ class Client(IProcess):
         self._app = None
 
     @property
+    def results(self):
+        return self._app.get_results()
+
+    @property
     def app(self):
         return self._app
 
@@ -40,4 +44,24 @@ class Client(IProcess):
             self.subscriber.clean()
 
     def run(self, loops=True):
-        pass
+        stop = False
+
+        try:
+            while not stop and loops:
+                if self.app.done():
+                    stop = True
+                else:
+                    # Send tasks if any
+                    task = self.app.get_task()
+                    if task:
+                        self.producer.run(data=task)
+                    # Get results if any
+                    result = self.subscriber.run()
+                    if result:
+                        self.app.add_result(result)
+                if not stop and not isinstance(loops, bool):
+                    loops -= 1
+        except KeyboardInterrupt:
+            pass
+        finally:
+            self.clean()
