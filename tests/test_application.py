@@ -23,7 +23,14 @@ def test_application_class_to_be_extended():
         C()
 
     class D(C):
+        def get_results(self):
+            pass
+
+    with pytest.raises(TypeError):
+        D()
+
+    class E(D):
         def done(self):
             pass
 
-    D()
+    E()

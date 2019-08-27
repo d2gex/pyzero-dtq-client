@@ -29,8 +29,8 @@ class Client(IProcess):
 
     @app.setter
     def app(self, application):
-        if not issubclass(application, Application):
-            raise ValueError(f"'application' argument should be a subclass of {Application}")
+        if not isinstance(application, Application):
+            raise ValueError(f"'application' argument should be an instance of {Application}")
         self._app = application
 
     def init_sockets(self):
@@ -44,6 +44,14 @@ class Client(IProcess):
             self.subscriber.clean()
 
     def run(self, loops=True):
+        '''Run the client either indefinitely or for a finite amount of loops as shown below:
+
+        1) if all tasks are done => exit the loop
+        2) Otherwise fetch any available task and send it to the other side of the fence via a producer.
+        3) Listen to any result from the other side of the fence and add it to the list of possible results
+
+        Each partial result obtained from the subscriber socket includes the topic as follows [topic, data]
+        '''
         stop = False
 
         try:

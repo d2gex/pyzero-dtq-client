@@ -3,7 +3,7 @@ import pytest
 from pyzero_dtq_client import client
 from pyzero_dtq_client.application import Application
 from unittest.mock import MagicMock, patch
-from test import utils as test_utils
+from tests import utils as test_utils
 
 
 @pytest.fixture
@@ -16,7 +16,7 @@ def dummy_client():
 
 
 def test_app_setter_property(dummy_client):
-    '''Ensure than when an app is provided via @app property, this is a subclass of Application
+    '''Ensure than when an app is provided via @app property, this is an instance of Application
     '''
 
     with pytest.raises(ValueError):
@@ -30,10 +30,13 @@ def test_app_setter_property(dummy_client):
         def add_result(self, result):
             pass
 
+        def get_results(self):
+            pass
+
         def done(self):
             pass
 
-    dummy_client.app = AppSubclass
+    dummy_client.app = AppSubclass()
 
 
 def test_init_clean(dummy_client):

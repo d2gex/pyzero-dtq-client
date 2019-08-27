@@ -12,5 +12,9 @@ class Application(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def get_results(self):
+        pass
+
+    @abc.abstractmethod
     def done(self):
         pass
