@@ -105,3 +105,15 @@ def test_add_results_when_available_and_ignore_sending_tasks_when_not(dummy_clie
     mock_subscriber.run.assert_called_once()
     mock_app.add_results.assert_not_called()
     mock_clean.assert_called_once()
+
+
+def test_keyboard_interrupt_exception(dummy_client):
+
+    with patch.object(dummy_client, '_app') as mock_app:
+        with patch.object(dummy_client, 'clean') as mock_clean:
+            mock_app.done.side_effect = KeyboardInterrupt()
+            try:
+                dummy_client.run(loops=1)
+            except KeyboardInterrupt as ex:
+                raise AssertionError('KeyboardInterrupt exception was thrown but it should have not') from ex
+            mock_app.get_task.assert_not_called()
