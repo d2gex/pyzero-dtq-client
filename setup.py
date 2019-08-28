@@ -18,11 +18,8 @@ setuptools.setup(
     url="https://github.com/d2gex/pyzero-dtq-client",
     packages=['pyzero_dtq_client'],
     python_requires='>=3.6',
-    install_requires=['producer-sink-zmq', 'pubsub-zmq'],
-    dependency_links=[
-        "git+https://github.com/d2gex/producer-sink-zmq.git@0.1.3#egg=producer-sink-zmq",
-        "git+https://github.com/d2gex/pubsub-zmq.git@0.1.1#egg=pubsub-zmq"
-    ],
+    install_requires=['producer-sink-zmq @ git+https://github.com/d2gex/producer-sink-zmq.git@0.1.3#egg=producer-sink-zmq',
+                      'pubsub-zmq @ git+https://github.com/d2gex/pubsub-zmq.git@0.1.1#egg=pubsub-zmq'],
     tests_require=['pytest>=5.0.1'],
     platforms='any',
     zip_safe=True,
