@@ -15,5 +15,5 @@ Install and Run
 **pyzero-dtq-client** is not available on PyPI yet, so you need to install it with pip providing a GitHub path as
 follows::
 
-    $ pip install git+git+https://github.com/d2gex/pyzero-dtq-client.git@0.1.1#egg=pyzero-dtq-client
+    $ pip install git+https://github.com/d2gex/pyzero-dtq-client.git@0.1.0#egg=pyzero-dtq-client
 
